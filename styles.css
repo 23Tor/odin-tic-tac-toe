@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body {
+    background: linear-gradient(to right, #743ad5, #d53a9d);
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.dark-mode {
+    background: linear-gradient(to right, #111, #333);
+    color: #f5f5f5;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 50px;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+    backdrop-filter: blur(10px);
+    width: 350p;
+    height: 350px;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.5s ease;
+}
+
+.container.dark-mode {
+    background: rgba(0, 0, 0, 0.7);
+    transition: background 0.5s ease, color 0;
+}
+
+.cell {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    transition: background 0.5s ease, color 0.5s ease, transform 0.3s ease;
+}
+
+.cell.dark-mode {
+    background: rgba(0, 0, 0, 0.7);
+    color: #f5f5f5;
+}
+
+.cell:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.message {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 10px 20px;
+    color: white;
+    backdrop-filter: blur(10px);
+    display: none;
+}
+
+.message:not(:empty) {
+    display: block;
+}
+
+#restart-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    backdrop-filter: blur(10px);
+}
+
+#glowing-orb, #glowing-orb2, #glowing-orb3, #glowing-orb4, #glowing-orb5, #glowing-orb6, #glowing-orb7, #glowing-orb8, #glowing-orb9 {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    background: radial-gradient(circle, rgba(255,255,255,1), rgba(255,255,255,0));
+    border-radius: 50%;
+    animation: glow 2s infinite;
+    transition: top 10s, left 10s;
+    filter: blur(75px);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px #14e4d9, 2px 2px 10px #14e4d9, -2px -2px 10px #14e4d9; }
+    100% { box-shadow: 0 0 5px #14e4d9, 2px 2px 10px #14e4d9, -2px -2px 10px #14e4d9; }
+}
+
+#darkModeToggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 15px;
+    padding: 0;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+#darkModeToggle img {
+    width: 100%;
+    height: 100%;
+}
