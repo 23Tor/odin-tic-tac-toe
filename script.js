@@ -176,6 +176,12 @@ function startGame() {
   document.querySelector(".container").style.display = "block";
   document.getElementById("restart-button").style.display = "block";
 
+  // Show cells
+  var cells = document.querySelectorAll('.container .cell');
+  for(var i = 0; i < cells.length; i++) {
+    cells[i].style.display = 'flex'; // or 'block', etc. depending on your layout
+  }
+
   // Hide game mode buttons
   document.querySelector(".game-mode").style.display = "none";
 }
