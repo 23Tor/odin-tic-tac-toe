@@ -2,6 +2,7 @@ const Game = () => {
   let board = Array(9).fill(null); // game state
   let currentPlayer = "X"; // start with player X
   let gameOver = false;
+  let aiPlayer = false; // flag to indicate if AI player is enabled
 
   const playTurn = (index) => {
     if (board[index] || gameOver) {
@@ -13,6 +14,11 @@ const Game = () => {
 
     checkGameStatus();
     switchPlayer();
+
+    // If AI player is enabled and it's AI's turn
+    if (aiPlayer && currentPlayer === "O" && !gameOver) {
+      makeAiMove();
+    }
   };
 
   const checkGameStatus = () => {
@@ -59,9 +65,9 @@ const Game = () => {
 
     // Reset cells
     document.querySelectorAll(".cell").forEach((cell, index) => {
-      cell.textContent = '';
+      cell.textContent = "";
     });
-    
+
     // Clear message
     document.querySelector(".message").textContent = "";
   };
@@ -70,7 +76,26 @@ const Game = () => {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
   };
 
-  return { checkGameStatus, restartGame, switchPlayer, playTurn };
+  const enableAiPlayer = () => {
+    aiPlayer = true;
+  };
+
+  const makeAiMove = () => {
+    // Simple AI logic: Randomly select an empty cell
+    const emptyCells = board.reduce((acc, cell, index) => {
+      if (!cell) {
+        acc.push(index);
+      }
+      return acc;
+    }, []);
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const aiMove = emptyCells[randomIndex];
+
+    playTurn(aiMove);
+  };
+
+  return { checkGameStatus, restartGame, switchPlayer, playTurn, enableAiPlayer };
 };
 
 const OrbAnimation = () => {
@@ -138,4 +163,21 @@ document.querySelectorAll(".cell").forEach((cell, index) => {
 });
 document.getElementById("restart-button").addEventListener("click", game.restartGame);
 document.getElementById("darkModeToggle").addEventListener("click", darkMode.toggleDarkMode);
+
+// Add event listeners for game mode buttons
+document.getElementById("multi-player").addEventListener("click", startGame);
+document.getElementById("single-player").addEventListener("click", () => {
+  game.enableAiPlayer();
+  startGame();
+});
+
+function startGame() {
+  // Show game board and restart button
+  document.querySelector(".container").style.display = "block";
+  document.getElementById("restart-button").style.display = "block";
+
+  // Hide game mode buttons
+  document.querySelector(".game-mode").style.display = "none";
+}
+
 window.onload = orbAnimation.animateOrbs;
