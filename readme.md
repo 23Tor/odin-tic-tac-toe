@@ -4,6 +4,7 @@ This is a simple implementation of the classic game Tic Tac Toe, built with HTML
 
 ## Play here
 [Link](https://23tor.github.io/tic-tac-toe/)
+
 ## Features
 
 - Player X always goes first.
