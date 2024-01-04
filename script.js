@@ -80,23 +80,25 @@ const Game = () => {
     aiPlayer = true;
   };
 
-  const makeAiMove = () => {
-    // Simple AI logic: Randomly select an empty cell
-    const emptyCells = board.reduce((acc, cell, index) => {
-      if (!cell) {
-        acc.push(index);
-      }
-      return acc;
-    }, []);
+    const makeAiMove = () => {
+      // Simple AI logic: Randomly select an empty cell
+      const emptyCells = board.reduce((acc, cell, index) => {
+        if (!cell) {
+          acc.push(index);
+        }
+        return acc;
+      }, []);
 
-    const randomIndex = Math.floor(Math.random() * emptyCells.length);
-    const aiMove = emptyCells[randomIndex];
+      const randomIndex = Math.floor(Math.random() * emptyCells.length);
+      const aiMove = emptyCells[randomIndex];
 
-    playTurn(aiMove);
+      setTimeout(() => {
+        playTurn(aiMove);
+      }, 1000);
+    };
+
+    return { checkGameStatus, restartGame, switchPlayer, playTurn, enableAiPlayer };
   };
-
-  return { checkGameStatus, restartGame, switchPlayer, playTurn, enableAiPlayer };
-};
 
 const OrbAnimation = () => {
   // Glowing orb animation
@@ -172,18 +174,48 @@ document.getElementById("single-player").addEventListener("click", () => {
 });
 
 function startGame() {
-  // Show game board and restart button
-  document.querySelector(".container").style.display = "block";
-  document.getElementById("restart-button").style.display = "block";
-
-  // Show cells
+  // Get the elements
+  var container = document.querySelector(".container");
+  var restartButton = document.getElementById("restart-button");
+  var gameMode = document.querySelector(".game-mode");
   var cells = document.querySelectorAll('.container .cell');
+
+  // Initially set the opacity of the game board and cells to 0
+  container.style.opacity = '0';
   for(var i = 0; i < cells.length; i++) {
-    cells[i].style.display = 'flex'; // or 'block', etc. depending on your layout
+    cells[i].style.opacity = '0';
   }
 
-  // Hide game mode buttons
-  document.querySelector(".game-mode").style.display = "none";
+  // Add the fade out class to the game mode buttons
+  gameMode.classList.add('css-fade-out');
+
+  // After the fade out animation is done, hide the game mode buttons and show the game board and cells
+  setTimeout(function() {
+    gameMode.style.display = "none";
+
+    // Show game board and restart button
+    container.style.display = "block";
+    restartButton.style.display = "block";
+
+    // Show cells
+    for(var i = 0; i < cells.length; i++) {
+      cells[i].style.display = 'flex'; // or 'block', etc. depending on your layout
+    }
+
+    // Add the fade in class to the game board and cells
+    container.classList.add('css-fade-in');
+    for(var i = 0; i < cells.length; i++) {
+      cells[i].classList.add('css-fade-in');
+    }
+
+    // Set the opacity of the container and cells to 1 after a short delay
+    setTimeout(function() {
+      container.style.opacity = '1';
+      for(var i = 0; i < cells.length; i++) {
+        cells[i].style.opacity = '1';
+      }
+    }, 50); // This delay can be very short, it just needs to give the browser time to register the display change
+  }, 500);
 }
 
 window.onload = orbAnimation.animateOrbs;
