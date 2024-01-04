@@ -18,17 +18,23 @@ body.dark-mode {
 .container {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
-    padding: 50px;
+    padding: 10px;  /* Reduce padding */
     display: grid;
     grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0px;
-    backdrop-filter: blur(10px);
-    width: 350p;
-    height: 350px;
+    gap: 10px;  /* Add space between rows */
     justify-content: center;
     align-items: center;
     transition: background 0.5s ease;
+    width: 500px; /* Fixed width */
+    height: 500px; /* Fixed height */
+}
+
+.row {
+    display: flex;
+    justify-content: space-around; /* Distribute cells evenly within each row */
+    width: 100%; /* Rows take full width of their grid cell */
+    height: 33.33%; /* Rows take full height of their grid cell */
+    gap: 10px;
 }
 
 .container.dark-mode {
@@ -45,9 +51,8 @@ body.dark-mode {
     font-size: 2em;
     color: white;
     cursor: pointer;
-    width: 100px;
-    height: 100px;
-    margin: 10px;
+    width: 33.33%; /* Cells take up one third of their row */
+    height: 95%; /* Cells take full height of their row */
     transition: background 0.5s ease, color 0.5s ease, transform 0.3s ease;
 }
 
