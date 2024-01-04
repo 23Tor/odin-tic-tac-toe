@@ -80,25 +80,23 @@ const Game = () => {
     aiPlayer = true;
   };
 
-    const makeAiMove = () => {
-      // Simple AI logic: Randomly select an empty cell
-      const emptyCells = board.reduce((acc, cell, index) => {
-        if (!cell) {
-          acc.push(index);
-        }
-        return acc;
-      }, []);
+      const makeAiMove = () => {
+        // Simple AI logic: Randomly select an empty cell
+        const emptyCells = board.reduce((acc, cell, index) => {
+          if (!cell) {
+            acc.push(index);
+          }
+          return acc;
+        }, []);
 
-      const randomIndex = Math.floor(Math.random() * emptyCells.length);
-      const aiMove = emptyCells[randomIndex];
+        const randomIndex = Math.floor(Math.random() * emptyCells.length);
+        const aiMove = emptyCells[randomIndex];
 
-      setTimeout(() => {
         playTurn(aiMove);
-      }, 1000);
-    };
+      };
 
-    return { checkGameStatus, restartGame, switchPlayer, playTurn, enableAiPlayer };
-  };
+      return { checkGameStatus, restartGame, switchPlayer, playTurn, enableAiPlayer };
+    };
 
 const OrbAnimation = () => {
   // Glowing orb animation
@@ -215,7 +213,7 @@ function startGame() {
         cells[i].style.opacity = '1';
       }
     }, 50); // This delay can be very short, it just needs to give the browser time to register the display change
-  }, 500);
+  }, 500); // This should match the duration of your transition // This should match the duration of your transition
 }
 
 window.onload = orbAnimation.animateOrbs;
